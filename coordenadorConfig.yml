@@ -1,0 +1,19 @@
+  mongoCoordenador:
+    image: mongo
+    restart: always
+    hostname: mongodb
+    command: mongod --port 8083
+    ports:
+      - 8083:8083
+
+  java8Coordenador:
+    image: openjdk:8-jre
+    ports:
+    - "8088:8088"
+    volumes:
+    - "/Users/felipemira/Spring-Workspace/coordenador/target:/usr/src/myapp"
+    working_dir: /usr/src/myapp
+    command: java -jar coordenador.jar
+    links:
+    - mongoCoordenador
+    
